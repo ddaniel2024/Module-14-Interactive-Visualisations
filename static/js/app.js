@@ -1,8 +1,6 @@
 d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
-console.log(data);
 
 let metadata = data.metadata;
-console.log(metadata);
 
 sample = 940;
 
@@ -10,11 +8,12 @@ function sampleMatch(row) {
   return row.id == sample
 }
 
-let match = metadata.filter(sampleMatch);
+let match = metadata.filter(sampleMatch)[0];
 console.log(match);
 
+
 let sampleMetadata = d3.select("#sample-metadata");
-sampleMetadata.append("ul").text("TEXTR");
+sampleMetadata.append("p").text(`ID ${match.id}`);
 console.log(sampleMetadata);
 
 });
