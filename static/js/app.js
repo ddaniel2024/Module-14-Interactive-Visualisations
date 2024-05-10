@@ -9,34 +9,28 @@ function findSample(row) {
   return row.id == sample
 }
 
-let testIdRow = metadata.filter(findSample)[0];
-console.log(testIdRow);
+let metadataRow = metadata.filter(findSample)[0];
 
-testIdKeys = Object.keys(testIdRow);
-testIdValues = Object.values(testIdRow);
-
-console.log(testIdKeys.length);
-console.log(testIdKeys[0]);
-console.log(testIdValues[0]);
+metadataKeys = Object.keys(metadataRow);
+metadataValues = Object.values(metadataRow);
 
 let sampleMetadata = d3.select("#sample-metadata");
 
-for (let i=0; i<testIdKeys.length; i++) {
-  sampleMetadata.append("p").text(`${testIdKeys[i]}: ${testIdValues[i]}`);
+for (let i=0; i<metadataKeys.length; i++) {
+  sampleMetadata.append("p").text(`${metadataKeys[i].toUpperCase()}: ${metadataValues[i]}`);
 }
 //////////////////////////////////////////////////////////////
 let samples = data.samples;
 
-let samplesMatch = samples.filter(findSample)[0];
-console.log(samplesMatch);
+let samplesRow = samples.filter(findSample)[0];
 
-let otuIds = samplesMatch.otu_ids;
+let otuIds = samplesRow.otu_ids;
 console.log(otuIds);
 
-let otuLabels = samplesMatch.otu_labels;
+let otuLabels = samplesRow.otu_labels;
 console.log(otuLabels);
 
-let sampleValues = samplesMatch.sample_values;
+let sampleValues = samplesRow.sample_values;
 console.log(sampleValues);
 
 let trace1 = {
@@ -46,7 +40,8 @@ let trace1 = {
   mode:"markers",
   marker:{
     size:sampleValues,
-    color:otuIds
+    color:otuIds,
+    colorscale:"Earth"
   },
   text:otuLabels
 };
@@ -66,17 +61,17 @@ trace1Data = [trace1];
 Plotly.newPlot("bubble", trace1Data, layout1);
 
 let trace2 = {
-  x:otuIds,
-  y:sampleValues,
+  x:sampleValues,
+  y:otuIds,
   type:"bar",
-  orientation:"horizontal"
+  orientation:"h"
 };
 
 trace2Data = [trace2];
 
 let layout2 = {
   title:"Top 10 bacteria Cultures Found",
-  yaxis : {
+  xaxis : {
     title:"Number of Bacteria"
   }
 };
