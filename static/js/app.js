@@ -1,4 +1,5 @@
 d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
+console.log(data);
 
 let metadata = data.metadata;
 
@@ -21,6 +22,19 @@ sampleMetadata.append("p").text(`BBTYPE: ${match.bbtype}`);
 sampleMetadata.append("p").text(`WFREQ: ${match.wfreq}`);
 console.log(sampleMetadata);
 
+let samples = data.samples;
+
+let samplesMatch = samples.filter(sampleMatch)[0];
+console.log(samplesMatch);
+
+let otuIds = samplesMatch.otu_ids;
+console.log(otuIds);
+
+let otuLabels = samplesMatch.otu_labels;
+console.log(otuLabels);
+
+let sampleValues = samplesMatch.sample_values;
+console.log(sampleValues);
 
 });
 // Build the metadata panel
