@@ -5,26 +5,29 @@ let metadata = data.metadata;
 
 sample = 940;
 
-function sampleMatch(row) {
+function findSample(row) {
   return row.id == sample
 }
 
-let match = metadata.filter(sampleMatch)[0];
-console.log(match);
+let testIdRow = metadata.filter(findSample)[0];
+console.log(testIdRow);
+
+testIdKeys = Object.keys(testIdRow);
+testIdValues = Object.values(testIdRow);
+
+console.log(testIdKeys.length);
+console.log(testIdKeys[0]);
+console.log(testIdValues[0]);
 
 let sampleMetadata = d3.select("#sample-metadata");
-sampleMetadata.append("p").text(`ID: ${match.id}`);
-sampleMetadata.append("p").text(`ETHNICITY: ${match.ethnicity}`);
-sampleMetadata.append("p").text(`GENDER: ${match.gender}`);
-sampleMetadata.append("p").text(`AGE: ${match.age}`);
-sampleMetadata.append("p").text(`LOCATION: ${match.location}`);
-sampleMetadata.append("p").text(`BBTYPE: ${match.bbtype}`);
-sampleMetadata.append("p").text(`WFREQ: ${match.wfreq}`);
-console.log(sampleMetadata);
 
+for (let i=0; i<testIdKeys.length; i++) {
+  sampleMetadata.append("p").text(`${testIdKeys[i]}: ${testIdValues[i]}`);
+}
+//////////////////////////////////////////////////////////////
 let samples = data.samples;
 
-let samplesMatch = samples.filter(sampleMatch)[0];
+let samplesMatch = samples.filter(findSample)[0];
 console.log(samplesMatch);
 
 let otuIds = samplesMatch.otu_ids;
@@ -48,7 +51,7 @@ let trace1 = {
   text:otuLabels
 };
 
-let layout = {
+let layout1 = {
   title:"Bacteria Cultures Per Sample",
   xaxis:{
     title:"OTU ID"
@@ -58,22 +61,30 @@ let layout = {
   }
 }
 
-traceData = [trace1];
+trace1Data = [trace1];
 
-Plotly.newPlot("bubble", traceData, layout);
+Plotly.newPlot("bubble", trace1Data, layout1);
 
 let trace2 = {
   x:otuIds,
   y:sampleValues,
-  type:"bar"
+  type:"bar",
+  orientation:"horizontal"
 };
 
 trace2Data = [trace2];
 
-Plotly.newPlot("bar", trace2Data);
+let layout2 = {
+  title:"Top 10 bacteria Cultures Found",
+  yaxis : {
+    title:"Number of Bacteria"
+  }
+};
+
+Plotly.newPlot("bar", trace2Data, layout2);
 
 
-});
+});""
 // Build the metadata panel
 function buildMetadata(sample) {
   d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
