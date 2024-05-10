@@ -13,6 +13,10 @@ function sampleMatch(row) {
 let match = metadata.filter(sampleMatch);
 console.log(match);
 
+let sampleMetadata = d3.select("#sample-metadata");
+sampleMetadata.append("ul").text("TEXTR");
+console.log(sampleMetadata);
+
 });
 // Build the metadata panel
 function buildMetadata(sample) {
