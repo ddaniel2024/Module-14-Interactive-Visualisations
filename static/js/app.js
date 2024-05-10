@@ -36,6 +36,16 @@ console.log(otuLabels);
 let sampleValues = samplesMatch.sample_values;
 console.log(sampleValues);
 
+let trace1 = {
+  x:otuIds,
+  y:sampleValues,
+  type:"scatter"
+};
+
+traceData = [trace1];
+
+Plotly.newPlot("bubble", traceData);
+
 });
 // Build the metadata panel
 function buildMetadata(sample) {
