@@ -1,9 +1,18 @@
 d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
 console.log(data);
 
-console.log(data.metadata);
+let metadata = data.metadata;
+console.log(metadata);
 
 sample = 940;
+
+function sampleMatch(row) {
+  return row.id == sample
+}
+
+let match = metadata.filter(sampleMatch);
+console.log(match);
+
 });
 // Build the metadata panel
 function buildMetadata(sample) {
@@ -11,17 +20,12 @@ function buildMetadata(sample) {
     console.log(data);
 
     // get the metadata field
-    let metadata = data.metadata;
 
     // Filter the metadata for the object with the desired sample number
-    sample = 940;
-    console.log(metadata);
 
     // Use d3 to select the panel with id of `#sample-metadata`
 
-
     // Use `.html("") to clear any existing metadata
-
 
     // Inside a loop, you will need to use d3 to append new
     // tags for each key-value in the filtered metadata.
