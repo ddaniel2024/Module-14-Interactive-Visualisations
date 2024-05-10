@@ -1,12 +1,20 @@
+d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
+console.log(data.metadata);
+});
+
+sample = 940;
+
 // Build the metadata panel
 function buildMetadata(sample) {
   d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
+    console.log(data);
 
     // get the metadata field
-
+    let metadata = data.metadata;
 
     // Filter the metadata for the object with the desired sample number
-
+    sample = 940;
+    console.log(metadata);
 
     // Use d3 to select the panel with id of `#sample-metadata`
 
@@ -19,7 +27,6 @@ function buildMetadata(sample) {
 
   });
 }
-
 // function to build both charts
 function buildCharts(sample) {
   d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
