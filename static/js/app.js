@@ -39,12 +39,28 @@ console.log(sampleValues);
 let trace1 = {
   x:otuIds,
   y:sampleValues,
-  type:"scatter"
+  type:"scatter",
+  mode:"markers",
+  marker:{
+    size:sampleValues,
+    color:otuIds
+  },
+  text:otuLabels
 };
+
+let layout = {
+  title:"Bacteria Cultures Per Sample",
+  xaxis:{
+    title:"OTU ID"
+  },
+  yaxis:{
+    title:"Number of Bacteria"
+  }
+}
 
 traceData = [trace1];
 
-Plotly.newPlot("bubble", traceData);
+Plotly.newPlot("bubble", traceData, layout);
 
 });
 // Build the metadata panel
