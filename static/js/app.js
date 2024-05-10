@@ -11,10 +11,16 @@ function sampleMatch(row) {
 let match = metadata.filter(sampleMatch)[0];
 console.log(match);
 
-
 let sampleMetadata = d3.select("#sample-metadata");
-sampleMetadata.append("p").text(`ID ${match.id}`);
+sampleMetadata.append("p").text(`ID: ${match.id}`);
+sampleMetadata.append("p").text(`ETHNICITY: ${match.ethnicity}`);
+sampleMetadata.append("p").text(`GENDER: ${match.gender}`);
+sampleMetadata.append("p").text(`AGE: ${match.age}`);
+sampleMetadata.append("p").text(`LOCATION: ${match.location}`);
+sampleMetadata.append("p").text(`BBTYPE: ${match.bbtype}`);
+sampleMetadata.append("p").text(`WFREQ: ${match.wfreq}`);
 console.log(sampleMetadata);
+
 
 });
 // Build the metadata panel
