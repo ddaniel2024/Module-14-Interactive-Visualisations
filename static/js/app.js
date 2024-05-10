@@ -62,6 +62,17 @@ traceData = [trace1];
 
 Plotly.newPlot("bubble", traceData, layout);
 
+let trace2 = {
+  x:otuIds,
+  y:sampleValues,
+  type:"bar"
+};
+
+trace2Data = [trace2];
+
+Plotly.newPlot("bar", trace2Data);
+
+
 });
 // Build the metadata panel
 function buildMetadata(sample) {
