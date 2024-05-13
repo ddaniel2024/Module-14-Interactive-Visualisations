@@ -9,10 +9,10 @@ function findSample(row) {
   return row.id == sample
 }
 
-let metadataRow = metadata.filter(findSample)[0];
+let metadataRow = metadata.filter(findSample);
 
-metadataKeys = Object.keys(metadataRow);
-metadataValues = Object.values(metadataRow);
+metadataKeys = Object.keys(metadataRow[0]);
+metadataValues = Object.values(metadataRow[0]);
 
 let sampleMetadata = d3.select("#sample-metadata");
 
@@ -21,16 +21,18 @@ for (let i=0; i<metadataKeys.length; i++) {
 }
 //////////////////////////////////////////////////////////////
 let samples = data.samples;
+console.log(samples);
 
-let samplesRow = samples.filter(findSample)[0];
+let samplesRow = samples.filter(findSample);
+console.log(samplesRow);
 
-let otuIds = samplesRow.otu_ids;
+let otuIds = samplesRow.map(row => row.otu_ids)[0];
 console.log(otuIds);
 
-let otuLabels = samplesRow.otu_labels;
+let otuLabels = samplesRow.map(row => row.otu_labels)[0];
 console.log(otuLabels);
 
-let sampleValues = samplesRow.sample_values;
+let sampleValues = samplesRow.map(row => row.sample_values)[0];
 console.log(sampleValues);
 
 let trace1 = {
@@ -60,8 +62,11 @@ trace1Data = [trace1];
 
 Plotly.newPlot("bubble", trace1Data, layout1);
 
+let sortedOtus = sampleValues.sort((a,b) => b.sampleValues - a.sampleValues).slice(0,10);
+console.log(sortedOtus);
+
 let trace2 = {
-  x:sampleValues,
+  x:sortedOtus,
   y:otuIds,
   type:"bar",
   orientation:"h"
@@ -78,6 +83,14 @@ let layout2 = {
 
 Plotly.newPlot("bar", trace2Data, layout2);
 
+let names = data.names
+console.log(names);
+
+let dropdown = d3.select("#selDataset");
+
+for (let i=0; i<names.length; i++) {
+  dropdown.append("option").text(names[i]);
+}
 
 });""
 // Build the metadata panel
