@@ -1,7 +1,6 @@
 // Build the metadata panel
 function buildMetadata(sample) {
   d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
-    console.log(data);
 
     // get the metadata field
     let metadata = data.metadata;
@@ -9,7 +8,7 @@ function buildMetadata(sample) {
     // Filter the metadata for the object with the desired sample number
     function findSample(row) {
       return row.id == sample
-    }
+    };
 
     let metadataRow = metadata.filter(findSample);
 
@@ -17,6 +16,7 @@ function buildMetadata(sample) {
     let sampleMetadata = d3.select("#sample-metadata");
 
     // Use `.html("") to clear any existing metadata
+    sampleMetadata.html("");
 
     // Inside a loop, you will need to use d3 to append new
     // tags for each key-value in the filtered metadata.
@@ -38,7 +38,7 @@ function buildCharts(sample) {
     // Filter the samples for the object with the desired sample number
     function findSample(row) {
       return row.id == sample
-    }
+    };
 
     let samplesRow = samples.filter(findSample);
 
@@ -137,7 +137,7 @@ function init() {
 // Function for event listener
 function optionChanged(newSample) {
   // Build charts and metadata panel each time a new sample is selected
-  d3.selectAll("#selDataset").on("change", buildMetadata);
+  d3.selectAll("#selDataset").on("change", buildMetadata(newSample), buildCharts(newSample));
 }
 
 // Initialize the dashboard
