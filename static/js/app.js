@@ -90,7 +90,8 @@ function buildCharts(sample) {
       x : slicedSampleValues,
       y : slicedYTicks,
       type : "bar",
-      orientation : "h"
+      orientation : "h",
+      text : otuLabels
     }
 
     let layout2 = {
