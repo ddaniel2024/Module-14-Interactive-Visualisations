@@ -20,8 +20,8 @@ function buildMetadata(sample) {
 
     // Inside a loop, you will need to use d3 to append new
     // tags for each key-value in the filtered metadata.
-    metadataKeys = Object.keys(metadataRow[0]);
-    metadataValues = Object.values(metadataRow[0]);
+    let metadataKeys = Object.keys(metadataRow[0]);
+    let metadataValues = Object.values(metadataRow[0]);
     
     for (let i=0; i<metadataKeys.length; i++) {
       sampleMetadata.append("p").text(`${metadataKeys[i].toUpperCase()}: ${metadataValues[i]}`);
@@ -43,68 +43,67 @@ function buildCharts(sample) {
     let samplesRow = samples.filter(findSample);
 
     // Get the otu_ids, otu_labels, and sample_values
-    let otuIds = samplesRow.map(row => row.otu_ids)[0];
+    let otuIds = samplesRow[0].otu_ids;
     
-    let otuLabels = samplesRow.map(row => row.otu_labels)[0];
-    
-    let sampleValues = samplesRow.map(row => row.sample_values)[0];
+    let otuLabels = samplesRow[0].otu_labels;
+
+    let sampleValues = samplesRow[0].sample_values;
 
     // Build a Bubble Chart
     let trace1 = {
-      x:otuIds,
-      y:sampleValues,
-      type:"scatter",
-      mode:"markers",
-      marker:{
-        size:sampleValues,
-        color:otuIds,
-        colorscale:"Earth"
+      x : otuIds,
+      y : sampleValues,
+      type : "scatter",
+      mode : "markers",
+      marker : {
+        size : sampleValues,
+        color : otuIds,
+        colorscale : "Earth"
       },
-      text:otuLabels
+      text : otuLabels
     };
     
     let layout1 = {
-      title:"Bacteria Cultures Per Sample",
-      xaxis:{
-        title:"OTU ID"
+      title : "Bacteria Cultures Per Sample",
+      xaxis : {
+        title : "OTU ID"
       },
-      yaxis:{
-        title:"Number of Bacteria"
+      yaxis : {
+        title : "Number of Bacteria"
       }
     }
     
-    trace1Data = [trace1];
+    let trace1Data = [trace1];
     
     // Render the Bubble Chart
     Plotly.newPlot("bubble", trace1Data, layout1);
 
     // For the Bar Chart, map the otu_ids to a list of strings for your yticks
-
+    let yticks = otuIds.map(otuId =>  `OTU ${otuId.toString()}`);
 
     // Build a Bar Chart
     // Don't forget to slice and reverse the input data appropriately
-    let sortedOtus = sampleValues.sort((a,b) => b.sampleValues - a.sampleValues).slice(0,10);
-    console.log(sortedOtus);
+    let slicedSampleValues = sampleValues.slice(0,10).reverse();
+    let slicedYTicks = yticks.slice(0,10).reverse();
 
     let trace2 = {
-      x:sortedOtus,
-      y:otuIds,
-      type:"bar",
-      orientation:"h"
-    };
-    
-    trace2Data = [trace2];
-    
+      x : slicedSampleValues,
+      y : slicedYTicks,
+      type : "bar",
+      orientation : "h"
+    }
+
     let layout2 = {
-      title:"Top 10 bacteria Cultures Found",
+      title : "Top 10 Bacteria Cultures Found",
       xaxis : {
-        title:"Number of Bacteria"
+        title : "Number of Bacteria"
       }
-    };
+    }
+
+    let trace2Data = [trace2];
 
     // Render the Bar Chart
     Plotly.newPlot("bar", trace2Data, layout2);
-    
   });
 }
 
