@@ -6,6 +6,6 @@ The dataset reveals that a small handful of microbial species (also called opera
 
 Code Sources:
 * Objects, Keys, and Values help : https://javascript.info/keys-values-entries
-    * Converting Strip to uppercase in javascript : https://www.w3schools.com/jsref/jsref_touppercase.asp
-    * Javascript colourscales : https://plotly.com/javascript/colorscales/
-    * Configuring axis ticks in Javascript : https://plotly.com/javascript/axes/
+* Converting Strip to uppercase in javascript : https://www.w3schools.com/jsref/jsref_touppercase.asp
+* Javascript colourscales : https://plotly.com/javascript/colorscales/
+* Configuring axis ticks in Javascript : https://plotly.com/javascript/axes/
