@@ -40,14 +40,14 @@ function buildCharts(sample) {
       return row.id == sample
     };
 
-    let samplesRow = samples.filter(findSample);
+    let samplesRow = samples.filter(findSample)[0];
 
     // Get the otu_ids, otu_labels, and sample_values
-    let otuIds = samplesRow[0].otu_ids;
+    let otuIds = samplesRow.otu_ids;
     
-    let otuLabels = samplesRow[0].otu_labels;
+    let otuLabels = samplesRow.otu_labels;
 
-    let sampleValues = samplesRow[0].sample_values;
+    let sampleValues = samplesRow.sample_values;
 
     // Build a Bubble Chart
     let trace1 = {
